@@ -18,4 +18,16 @@ public class Stock {
         ));
     }
 
+    public int getNumberOf(Class<? extends Food> food) {
+        return stock.getOrDefault(food, 0);
+    }
+
+    public void addFood(Class<? extends Food> food) {
+        stock.put(food, stock.getOrDefault(food, 0) + 1);
+    }
+
+    public void removeFood(Class<? extends Food> food) {
+        stock.put(food, stock.getOrDefault(food, 0) - 1);
+    }
+
 }
