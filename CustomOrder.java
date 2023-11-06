@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CustomOrder {
 
@@ -99,13 +96,37 @@ public class CustomOrder {
     }
 
     public void printOrder(){
+        float price = 0;
         StringBuilder sb = new StringBuilder();
         sb.append("Your order is composed of:\n");
 
-        menus.forEach(menu -> {
-            sb.append("- " + menu.getDrink().getClass().getSimpleName())
-                    .append()
-        });
+        for(Menu menu : menus){
+            price += menu.getPrice();
+            sb.append("- " + menu.getDrink().getClass().getSimpleName() + " and " + menu.getMeal().getClass().getSimpleName())
+                    .append("\n")
+                    .append("-> drink: " + menu.getDrink())
+                    .append("\n")
+                    .append("-> meal: " + menu.getMeal())
+                    .append("\n");
+        }
+
+        for(Map.Entry<Class<? extends Food>, Integer> food : order.entrySet()){
+            for(int i = 0; i < food.getValue(); i++){
+                try {
+                    float p = food.getKey().getDeclaredConstructor().newInstance().getPrice();
+                    price += p;
+                    sb.append("- " + food.getKey().getSimpleName())
+                            .append(" (" + p + " euros)")
+                            .append("\n");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        sb.append("For a total of")
+                .append(price)
+                .append(" euros.");
     }
 
 }
