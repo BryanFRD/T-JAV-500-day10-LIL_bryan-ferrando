@@ -31,11 +31,11 @@ public abstract class Sandwich implements Food {
 
     @Override
     public float getPrice() {
-        return 0;
+        return this.price;
     }
 
     @Override
     public int getCalories() {
-        return 0;
+        return this.calories;
     }
 }

@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CustomOrder {
 
+    private List<Menu> menus = new ArrayList<>();
     private Map<Class<? extends Food>, Integer> order = new HashMap<>();
     private Stock stock;
     public CustomOrder(Stock stock){
@@ -49,39 +53,59 @@ public class CustomOrder {
     }
 
     public boolean addMenu(Menu menu){
-        boolean drink = addItem(menu.getDrink());
-        boolean meal = addItem(menu.getMeal());
-        if(!drink || !meal){
-            if(!drink){
-                removeItem(menu.getDrink());
-            }
+        try {
+            boolean drink = stock.addFood(menu.getDrink().getClass());
+            boolean meal = stock.addFood(menu.getMeal().getClass());
+            if(!drink || !meal){
+                if(!drink){
+                    stock.removeFood(menu.getDrink().getClass());
+                }
 
-            if(!meal){
-                removeItem(menu.getMeal());
+                if(!meal){
+                    stock.removeFood(menu.getMeal().getClass());
+                }
+                return false;
             }
+            menus.add(menu);
+        } catch (NoSuckFoodException e){
             return false;
         }
         return true;
     }
 
     public boolean removeMenu(Menu menu){
-        boolean drink = removeItem(menu.getDrink());
-        boolean meal = removeItem(menu.getMeal());
-        if(!drink || !meal){
-            if(!drink){
-                addItem(menu.getDrink());
-            }
+        if(!menus.contains(menu)){
+            return false;
+        }
 
-            if(!meal){
-                addItem(menu.getMeal());
+        try {
+            boolean drink = stock.removeFood(menu.getDrink().getClass());
+            boolean meal = stock.removeFood(menu.getMeal().getClass());
+            if(!drink || !meal){
+                if(!drink){
+                    stock.addFood(menu.getDrink().getClass());
+                }
+
+                if(!meal){
+                    stock.addFood(menu.getMeal().getClass());
+                }
+                return false;
             }
+            menus.remove(menu);
+        } catch (NoSuckFoodException e){
             return false;
         }
         return true;
     }
 
     public void printOrder(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your order is composed of:\n");
 
+        menus.forEach(menu -> {
+            sb.append("- " + menu.getDrink().getClass().getSimpleName())
+                    .append()
+        });
     }
 
 }

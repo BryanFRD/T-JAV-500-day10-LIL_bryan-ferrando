@@ -1,18 +1,18 @@
-public abstract class Menu {
+public abstract class Menu<T extends Food, V extends Food> {
 
-    protected Drink drink;
-    protected Food meal;
+    protected T drink;
+    protected V meal;
 
-    protected Menu(Drink drink, Food meal){
+    protected Menu(T drink, V meal){
         this.drink = drink;
         this.meal = meal;
     }
 
-    public Drink getDrink() {
+    public T getDrink() {
         return drink;
     }
 
-    public Food getMeal() {
+    public V getMeal() {
         return meal;
     }
 

@@ -10,12 +10,12 @@ public abstract class Drink implements Food {
     }
     @Override
     public float getPrice() {
-        return 0;
+        return this.price;
     }
 
     @Override
     public int getCalories() {
-        return 0;
+        return this.calories;
     }
 
     public void setACan(boolean aCan){
