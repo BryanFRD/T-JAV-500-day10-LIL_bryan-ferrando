@@ -1,14 +1,14 @@
 public abstract class Menu {
 
-    protected Food drink;
+    protected Drink drink;
     protected Food meal;
 
-    protected Menu(Food drink, Food meal){
+    protected Menu(Drink drink, Food meal){
         this.drink = drink;
         this.meal = meal;
     }
 
-    public Food getDrink() {
+    public Drink getDrink() {
         return drink;
     }
 
