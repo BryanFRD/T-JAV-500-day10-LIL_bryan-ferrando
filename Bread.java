@@ -9,8 +9,6 @@ public abstract class Bread implements Food {
         this.calories = calories;
     }
 
-
-
     public int getBakingTime(){
         return this.bakingTime;
     }
