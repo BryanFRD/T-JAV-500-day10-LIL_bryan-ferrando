@@ -22,11 +22,17 @@ public class Stock {
         return stock.getOrDefault(food, 0);
     }
 
-    public void addFood(Class<? extends Food> food) {
+    public void addFood(Class<? extends Food> food) throws NoSuckFoodException {
+        if(!stock.containsKey(food)){
+            throw new NoSuckFoodException("No such food type: " + food.getName() + ".");
+        }
         stock.put(food, stock.getOrDefault(food, 0) + 1);
     }
 
-    public void removeFood(Class<? extends Food> food) {
+    public void removeFood(Class<? extends Food> food) throws NoSuckFoodException {
+        if(!stock.containsKey(food)){
+            throw new NoSuckFoodException("No such food type: " + food.getName() + ".");
+        }
         stock.put(food, stock.getOrDefault(food, 0) - 1);
     }
 
