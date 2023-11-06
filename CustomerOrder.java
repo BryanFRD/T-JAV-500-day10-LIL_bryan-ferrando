@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class CustomOrder {
+public class CustomerOrder {
 
     private List<Menu> menus = new ArrayList<>();
     private Map<Class<? extends Food>, Integer> order = new HashMap<>();
     private Stock stock;
-    public CustomOrder(Stock stock){
+    public CustomerOrder(Stock stock){
         this.stock = stock;
     }
 
@@ -17,7 +17,7 @@ public class CustomOrder {
             } else {
                 order.put(food.getClass(), order.get(food.getClass()) + 1);
             }
-        } catch (NoSuckFoodException e) {
+        } catch (NoSuchFoodException e) {
             return false;
         }
         return true;
@@ -31,7 +31,7 @@ public class CustomOrder {
             } else {
                 order.put(food.getClass(), order.get(food.getClass()) - 1);
             }
-        } catch (NoSuckFoodException e) {
+        } catch (NoSuchFoodException e) {
             return false;
         }
         return true;
@@ -49,48 +49,37 @@ public class CustomOrder {
         return price;
     }
 
-    public boolean addMenu(Menu menu){
+    public boolean addMenu(Menu menu) throws NoSuchFoodException {
+        boolean drink = true;
         try {
-            boolean drink = stock.addFood(menu.getDrink().getClass());
-            boolean meal = stock.addFood(menu.getMeal().getClass());
-            if(!drink || !meal){
-                if(!drink){
-                    stock.removeFood(menu.getDrink().getClass());
-                }
-
-                if(!meal){
-                    stock.removeFood(menu.getMeal().getClass());
-                }
-                return false;
-            }
+            drink = stock.addFood(menu.getDrink().getClass());
+            stock.addFood(menu.getMeal().getClass());
             menus.add(menu);
-        } catch (NoSuckFoodException e){
+        } catch (NoSuchFoodException e){
+            if(!drink){
+                stock.removeFood(menu.getDrink().getClass());
+            }
             return false;
         }
         return true;
     }
 
-    public boolean removeMenu(Menu menu){
+    public boolean removeMenu(Menu menu) throws NoSuchFoodException {
         if(!menus.contains(menu)){
             return false;
         }
 
+        boolean drink = true;
         try {
-            boolean drink = stock.removeFood(menu.getDrink().getClass());
-            boolean meal = stock.removeFood(menu.getMeal().getClass());
-            if(!drink || !meal){
-                if(!drink){
-                    stock.addFood(menu.getDrink().getClass());
-                }
-
-                if(!meal){
-                    stock.addFood(menu.getMeal().getClass());
-                }
-                return false;
-            }
+            drink = stock.removeFood(menu.getDrink().getClass());
+            stock.removeFood(menu.getMeal().getClass());
             menus.remove(menu);
-        } catch (NoSuckFoodException e){
-            return false;
+        } catch (NoSuchFoodException e){
+            if(!drink){
+                stock.addFood(menu.getDrink().getClass());
+            }
+
+            throw new NoSuchFoodException(e.getMessage());
         }
         return true;
     }
@@ -102,11 +91,14 @@ public class CustomOrder {
 
         for(Menu menu : menus){
             price += menu.getPrice();
-            sb.append("- " + menu.getDrink().getClass().getSimpleName() + " and " + menu.getMeal().getClass().getSimpleName())
+            sb.append("- " + menu.getClass().getName())
+                    .append(" menu (")
+                    .append(menu.getPrice())
+                    .append(" euros)")
                     .append("\n")
-                    .append("-> drink: " + menu.getDrink())
+                    .append("-> drink: " + menu.getDrink().getClass().getName())
                     .append("\n")
-                    .append("-> meal: " + menu.getMeal())
+                    .append("-> meal: " + menu.getMeal().getClass().getName())
                     .append("\n");
         }
 
@@ -115,7 +107,7 @@ public class CustomOrder {
                 try {
                     float p = food.getKey().getDeclaredConstructor().newInstance().getPrice();
                     price += p;
-                    sb.append("- " + food.getKey().getSimpleName())
+                    sb.append("- " + food.getKey().getName())
                             .append(" (" + p + " euros)")
                             .append("\n");
                 } catch (Exception e) {
@@ -124,9 +116,11 @@ public class CustomOrder {
             }
         }
 
-        sb.append("For a total of")
+        sb.append("For a total of ")
                 .append(price)
                 .append(" euros.");
+
+        System.out.println(sb.toString());
     }
 
 }

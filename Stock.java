@@ -18,24 +18,24 @@ public class Stock {
         ));
     }
 
-    public int getNumberOf(Class<? extends Food> food) throws NoSuckFoodException {
+    public int getNumberOf(Class<? extends Food> food) throws NoSuchFoodException {
         if(!stock.containsKey(food)){
-            throw new NoSuckFoodException("No such food type: " + food.getName() + ".");
+            throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
         return stock.getOrDefault(food, 0);
     }
 
-    public boolean addFood(Class<? extends Food> food) throws NoSuckFoodException {
+    public boolean addFood(Class<? extends Food> food) throws NoSuchFoodException {
         if(!stock.containsKey(food)){
-            throw new NoSuckFoodException("No such food type: " + food.getName() + ".");
+            throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
         stock.put(food, stock.getOrDefault(food, 0) + 1);
         return true;
     }
 
-    public boolean removeFood(Class<? extends Food> food) throws NoSuckFoodException {
+    public boolean removeFood(Class<? extends Food> food) throws NoSuchFoodException {
         if(!stock.containsKey(food)){
-            throw new NoSuckFoodException("No such food type: " + food.getName() + ".");
+            throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
         if(stock.get(food) == 0){
             return false;
