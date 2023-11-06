@@ -17,7 +17,7 @@ public abstract class Menu<T extends Food, V extends Food> {
     }
 
     public float getPrice(){
-        return (drink.getPrice() + meal.getPrice()) * 0.1f;
+        return (drink.getPrice() + meal.getPrice()) * 0.9f;
     }
 
 }
