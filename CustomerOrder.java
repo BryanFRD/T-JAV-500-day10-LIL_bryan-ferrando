@@ -52,8 +52,8 @@ public class CustomerOrder {
     public boolean addMenu(Menu<?, ?> menu) throws NoSuchFoodException {
         boolean drink = true;
         try {
-            drink = stock.add(menu.getDrink().getClass());
-            stock.add(menu.getMeal().getClass());
+            drink = stock.remove(menu.getDrink().getClass());
+            stock.remove(menu.getMeal().getClass());
             menus.add(menu);
         } catch (NoSuchFoodException e){
             if(!drink){
@@ -71,8 +71,8 @@ public class CustomerOrder {
 
         boolean drink = true;
         try {
-            drink = stock.remove(menu.getDrink().getClass());
-            stock.remove(menu.getMeal().getClass());
+            drink = stock.add(menu.getDrink().getClass());
+            stock.add(menu.getMeal().getClass());
             menus.remove(menu);
         } catch (NoSuchFoodException e){
             if(!drink){
