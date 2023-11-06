@@ -89,16 +89,19 @@ public class CustomerOrder {
         StringBuilder sb = new StringBuilder();
         sb.append("Your order is composed of:\n");
 
-        for(Menu menu : menus){
+        for(Menu<?, ?> menu : menus){
             price += menu.getPrice();
-            sb.append("- " + menu.getClass().getName())
+            sb.append("- ")
+                    .append(menu.getClass().getName())
                     .append(" menu (")
                     .append(menu.getPrice())
                     .append(" euros)")
                     .append("\n")
-                    .append("-> drink: " + menu.getDrink().getClass().getName())
+                    .append("-> drink: ")
+                    .append(menu.getDrink().getClass().getName())
                     .append("\n")
-                    .append("-> meal: " + menu.getMeal().getClass().getName())
+                    .append("-> meal: ")
+                    .append(menu.getMeal().getClass().getName())
                     .append("\n");
         }
 
@@ -107,8 +110,11 @@ public class CustomerOrder {
                 try {
                     float p = food.getKey().getDeclaredConstructor().newInstance().getPrice();
                     price += p;
-                    sb.append("- " + food.getKey().getName())
-                            .append(" (" + p + " euros)")
+                    sb.append("- ")
+                            .append(food.getKey().getName())
+                            .append(" (")
+                            .append(p)
+                            .append(" euros)")
                             .append("\n");
                 } catch (Exception e) {
                     e.printStackTrace();

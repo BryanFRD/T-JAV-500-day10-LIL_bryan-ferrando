@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class Stock {
 
-    private Map<Class<? extends Food>, Integer> stock = new HashMap<>();
+    private final Map<Class<? extends Food>, Integer> stock = new HashMap<>();
 
     public Stock(){
         stock.putAll(Map.of(
