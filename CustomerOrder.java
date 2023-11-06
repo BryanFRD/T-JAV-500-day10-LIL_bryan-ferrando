@@ -2,7 +2,7 @@ import java.util.*;
 
 public class CustomerOrder {
 
-    private List<Menu> menus = new ArrayList<>();
+    private List<Menu<?, ?>> menus = new ArrayList<>();
     private Map<Class<? extends Food>, Integer> order = new HashMap<>();
     private Stock stock;
     public CustomerOrder(Stock stock){
@@ -11,7 +11,7 @@ public class CustomerOrder {
 
     public boolean addItem(Food food){
         try {
-            stock.removeFood(food.getClass());
+            stock.remove(food.getClass());
             if(!order.containsKey(food.getClass())){
                 order.put(food.getClass(), 1);
             } else {
@@ -25,7 +25,7 @@ public class CustomerOrder {
 
     public boolean removeItem(Food food){
         try {
-            stock.addFood(food.getClass());
+            stock.add(food.getClass());
             if(!order.containsKey(food.getClass())){
                 return false;
             } else {
@@ -49,34 +49,34 @@ public class CustomerOrder {
         return price;
     }
 
-    public boolean addMenu(Menu menu) throws NoSuchFoodException {
+    public boolean addMenu(Menu<?, ?> menu) throws NoSuchFoodException {
         boolean drink = true;
         try {
-            drink = stock.addFood(menu.getDrink().getClass());
-            stock.addFood(menu.getMeal().getClass());
+            drink = stock.add(menu.getDrink().getClass());
+            stock.add(menu.getMeal().getClass());
             menus.add(menu);
         } catch (NoSuchFoodException e){
             if(!drink){
-                stock.removeFood(menu.getDrink().getClass());
+                stock.remove(menu.getDrink().getClass());
             }
             return false;
         }
         return true;
     }
 
-    public boolean removeMenu(Menu menu) throws NoSuchFoodException {
+    public boolean removeMenu(Menu<?, ?> menu) throws NoSuchFoodException {
         if(!menus.contains(menu)){
             return false;
         }
 
         boolean drink = true;
         try {
-            drink = stock.removeFood(menu.getDrink().getClass());
-            stock.removeFood(menu.getMeal().getClass());
+            drink = stock.remove(menu.getDrink().getClass());
+            stock.remove(menu.getMeal().getClass());
             menus.remove(menu);
         } catch (NoSuchFoodException e){
             if(!drink){
-                stock.addFood(menu.getDrink().getClass());
+                stock.add(menu.getDrink().getClass());
             }
 
             throw new NoSuchFoodException(e.getMessage());

@@ -25,7 +25,7 @@ public class Stock {
         return stock.getOrDefault(food, 0);
     }
 
-    public boolean addFood(Class<? extends Food> food) throws NoSuchFoodException {
+    public boolean add(Class<? extends Food> food) throws NoSuchFoodException {
         if(!stock.containsKey(food)){
             throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
@@ -33,7 +33,7 @@ public class Stock {
         return true;
     }
 
-    public boolean removeFood(Class<? extends Food> food) throws NoSuchFoodException {
+    public boolean remove(Class<? extends Food> food) throws NoSuchFoodException {
         if(!stock.containsKey(food)){
             throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
