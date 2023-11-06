@@ -59,7 +59,7 @@ public class CustomerOrder {
             if(!drink){
                 stock.remove(menu.getDrink().getClass());
             }
-            return false;
+            throw new NoSuchFoodException(e.getMessage());
         }
         return true;
     }
