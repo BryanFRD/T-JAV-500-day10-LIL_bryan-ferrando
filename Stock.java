@@ -18,7 +18,7 @@ public class Stock {
 
     public int getNumberOf(Class<? extends Food> food) {
         if (!stock.containsKey(food)) {
-            throw new NoSuchFoodException("No such food: " + food.getName() + ".");
+            throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
         return stock.get(food);
     }
@@ -29,7 +29,7 @@ public class Stock {
             stock.put(food, stock.get(food) + 1);
             return stock.get(food) == current_stock + 1;
         } else {
-            throw new NoSuchFoodException("No such food: " + food.getName() + ".");
+            throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
     }
 
@@ -42,7 +42,7 @@ public class Stock {
             stock.put(food, stock.get(food) - 1);
             return stock.get(food) == current_stock - 1;
         } else {
-            throw new NoSuchFoodException("No such food: " + food.getName() + ".");
+            throw new NoSuchFoodException("No such food type: " + food.getName() + ".");
         }
 
     }
