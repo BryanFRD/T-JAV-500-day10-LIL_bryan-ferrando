@@ -81,6 +81,7 @@ public class CustomerOrder {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void printOrder() {
         float totalPrice = 0;
 

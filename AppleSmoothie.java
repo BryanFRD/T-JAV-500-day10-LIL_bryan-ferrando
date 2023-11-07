@@ -2,7 +2,7 @@ public class AppleSmoothie extends Drink {
 
     public AppleSmoothie() {
         super(1.50f, 431);
-        aCan = false;
+        this.aCan = false;
     }
 
 }

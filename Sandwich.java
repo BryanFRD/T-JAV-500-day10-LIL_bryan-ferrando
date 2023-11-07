@@ -8,34 +8,28 @@ public abstract class Sandwich implements Food {
     protected boolean vegetarian = false;
     protected List<String> ingredients = new ArrayList<>();
 
-    protected Sandwich(float price, int calories){
+    protected Sandwich(float price, int calories) {
         this.price = price;
         this.calories = calories;
     }
 
-    public boolean isVegetarian(){
-        return this.vegetarian;
-    }
-
-    public void setVegetarian(boolean vegetarian){
-        this.vegetarian = vegetarian;
-    }
-
-    public List<String> getIngredients(){
-        return this.ingredients;
-    }
-
-    public void setIngredients(List<String> ingredients){
-        this.ingredients = ingredients;
-    }
-
     @Override
     public float getPrice() {
-        return this.price;
+        return price;
     }
 
     @Override
     public int getCalories() {
-        return this.calories;
+        return calories;
     }
+
+    public boolean isVegetarian() {
+        return vegetarian;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+
 }

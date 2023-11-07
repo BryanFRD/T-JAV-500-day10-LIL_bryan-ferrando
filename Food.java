@@ -1,6 +1,7 @@
 public interface Food {
 
-    float getPrice();
-    int getCalories();
+    public float getPrice();
+
+    public int getCalories();
 
 }

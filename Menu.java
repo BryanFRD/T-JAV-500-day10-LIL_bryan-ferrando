@@ -3,7 +3,7 @@ public abstract class Menu<T extends Food, V extends Food> {
     protected T drink;
     protected V meal;
 
-    protected Menu(T drink, V meal){
+    protected Menu(T drink, V meal) {
         this.drink = drink;
         this.meal = meal;
     }
@@ -16,8 +16,7 @@ public abstract class Menu<T extends Food, V extends Food> {
         return meal;
     }
 
-    public float getPrice(){
+    public float getPrice() {
         return (drink.getPrice() + meal.getPrice()) * 0.9f;
     }
-
 }
